@@ -1,0 +1,5 @@
+sysfs-objs += sysfs/ktq_sysfs.o
+sysfs-objs += sysfs/ktq_debugfs.o
+sysfs-objs += sysfs/sysfs_core.o
+
+tq_kernel-objs += $(sysfs-objs)

@@ -1,0 +1,600 @@
+#ifndef GN_HEAD_H
+#define GN_HEAD_H
+
+#ifndef DEVICE_VERSION
+#include <stdint.h>
+#include <unistd.h>
+#include <linux/types.h>
+#include <linux/version.h>
+#include <sys/socket.h>
+#include <time.h>
+#include <sys/time.h>
+#else
+#include <linux/in.h>
+#include <linux/time.h>
+#include <linux/version.h>
+
+    
+    #define LOG_INFO(fmt, args...) printk(KERN_INFO "[%s][%d]: "fmt, __FUNCTION__, __LINE__,##args)
+    #define LOG_ERROR(fmt, args...) printk(KERN_ERR "[%s][%d]: "fmt, __FUNCTION__, __LINE__, ##args)
+
+	#ifdef DEBUG_FLAG
+        extern unsigned long debug_flag;
+        #ifdef DEBUG
+            #define LOG_DEBUG(fmt, args...) printk(KERN_DEBUG "[%s][%d]: "fmt, __FUNCTION__, __LINE__,##args)
+        #else
+            #define LOG_DEBUG(fmt, args...) {if (test_bit(0,&debug_flag)) {printk(KERN_DEBUG "[%s][%d]: "fmt, __FUNCTION__, __LINE__, ##args);}}
+        #endif
+    #else
+        #ifdef DEBUG
+            #define LOG_DEBUG(fmt, args...) printk(KERN_DEBUG "[%s][%d]: "fmt, __FUNCTION__, __LINE__,##args)
+        #else
+            #define LOG_DEBUG(fmt, args...) 
+        #endif
+    #endif
+
+    #define LOG_ERROR_SELF(fmt, args...) printk(fmt, ##args)
+    #define LOG_ERROR_SYS(fmt, args...) printk(fmt, ##args)
+    #define LOG_ERROR_DEV(fmt, args...) printk(fmt, ##args)
+#endif
+
+typedef enum {
+    NL_POLICY_ATTR_UNSPEC,
+    NL_POLICY_ATTR_BIN_MSG,
+    NL_POLICY_ATTR_STR_MSG,
+    NL_POLICY_ATTR_WAIT_FLAG,
+    NL_POLICY_ATTR_DATA_MSG,
+    __NL_POLICY_ATTR_MAX,
+} NL_POLICY_ATTR;
+#define GN_POLICY_ATTR_MAX (__GN_POLICY_ATTR_MAX - 1)
+
+typedef enum {
+    NL_PRODUCTION_EMPTY = 0,
+    NL_PRODUCTION_SELF = 1,
+    NL_PRODUCTION_AV = 2,
+    NL_PRODUCTION_APP_CONTROL = 4,
+    NL_PRODUCTION_AUDIT = 8,
+    NL_PRODUCTION_DEVICE_CONTROL = 32,
+    NL_PRODUCTION_NAC_WATER = 64,
+    NL_PRODUCTION_NETWORK = 128,
+} NL_PRODUCTION;
+
+/* commands: enumeration of all commands (functions),
+ * used by userspace application to identify command to be ececuted
+ */
+typedef enum {
+    NL_POLICY_CMD_UNSPEC,
+    NL_POLICY_CMD_ECHO = 1,
+    NL_POLICY_SIMPLE_END,
+    NL_POLICY_BOOL_END,
+    NL_POLICY_CMD_REGISTER,
+    NL_POLICY_CMD_ADD_SYMBOL,
+    NL_POLICY_CMD_UNREGISTER,
+//self protection notify index array
+    NL_POLICY_DEFENSE_UNSPEC = 0x100,
+    NL_POLICY_DEFENSE_SWITCHER,
+    NL_POLICY_SELF_SWITCHER,
+    NL_POLICY_GLOBAL_DIR,
+    NL_POLICY_DEFENSE_ADD_PROTECT_FILE,
+    NL_POLICY_DEFENSE_ADD_WHITE_EXE,
+
+    NL_POLICY_EXIPORT_RULE,
+    NL_POLICY_PROTECT_RULE,
+
+    NL_POLICY_DEFENSE_FILE_PROCESS_POLICY,
+
+//security document notify index array
+    NL_POLICY_AUDIT_UNSPEC = 0x200,
+    NL_POLICY_AUDIT_NET_POLICY,
+    NL_POLICY_AUDIT_PROCESS_POLICY,
+    NL_POLICY_AUDIT_SOFTWARE_POLICY,
+    NL_POLICY_AUDIT_SERVERIP_POLICY,
+    NL_POLICY_AUDIT_PRINT_POLICY,
+    NL_POLICY_AUDIT_UDISK_POLICY,//for shield
+//anti virus notify index array
+    NL_POLICY_SD_UNSPEC = 0x400,
+    NL_POLICY_SD_SWITCHER,
+    NL_POLICY_SD_ADD_EXEC_WHITE,
+    NL_POLICY_SD_ADD_FILE_WHITE,
+    
+//device control
+    NL_POLICY_DEVICE_CONTROL_UNSPEC = 0x500,
+    NL_POLICY_DEVICE_CONTROL_POLICY,
+
+//nac water
+    NL_POLICY_NAC_WATER_UNSPEC = 0x600,
+    NL_POLICY_NAC_WATER_POLICY,
+
+//network change
+    NL_POLICY_NETWORK_UNSPEC = 0x700,
+    NL_POLICY_NETWORK_POLICY,
+    NL_POLICY_NETSYSLOG_POLICY,
+    NL_POLICY_NETWORK_SERVERIP_POLICY,
+    NL_POLICY_NETWORK_NETBLOCK,
+    NL_POLICY_NETWORK_BUSINESS_PORT_POLICY,
+    //NL_POLICY_NETWORK_NAC_SERVERIP_POLICY,
+    //NL_POLICY_NETWORK_DNSIP_POLICY,
+    NL_MAX_CLASSIC_INDEX,
+////////////////////////////////////////////////////////////////////////////////
+//kernel to client common
+    NL_POLICY_CMD_NOTIFY = 0x503, //compatiable AK2
+    NL_POLICY_CMD_REGISTERED_NOTIFY,
+////////////////////////////////////////////////////////////////////////////////
+//antivirus rtmonitor
+    NL_POLICY_AV_PROCESS_EXEC_NOTIFY,
+    NL_POLICY_AV_FILE_CHANGE_NOTIFY,
+    NL_POLICY_AV_SELF_PROTECTION_NOTIFY,
+    NL_POLICY_NET_PORT_NOTIFY,
+    NL_POLICY_NET_PORT_ZCOPY_NOTIFY,
+    NL_POLICY_NET_CONNECT_PORT_IN_NOTIFY,
+    NL_POLICY_NET_CONNECT_PORT_OUT_NOTIFY,
+    NL_POLICY_NET_CONNECT_PORT_NOTIFY,
+    NL_POLICY_NET_DNS_PORT_NOTIFY,
+    NL_POLICY_NET_DNS_PORT_ZCOPY_NOTIFY,
+////////////////////////////////////////////////////////////////////////////////
+//audit
+    NL_POLICY_AUDIT_NETFLOW_NOTIFY,
+    NL_POLICY_AUDIT_FLOWMONITOR_CTRL_NOTIFY,
+    NL_POLICY_AUDIT_FLOWMONITOR_AUDIT_NOTIFY,
+    NL_POLICY_AUDIT_ARP_NOTIFY,
+    NL_POLICY_AUDIT_PORTSCAN_NOTIFY,
+    NL_POLICY_AUDIT_HTTP_NOTIFY,
+    NL_POLICY_AUDIT_PFLOW_NOTIFY,
+    NL_POLICY_AUDIT_PORT_NOTIFY,
+    NL_POLICY_AUDIT_FILE_NOTIFY,
+    NL_POLICY_AUDIT_SERVICE_NOTIFY,
+    NL_POLICY_AUDIT_SOFTWARE_NOTIFY,
+    NL_POLICY_AUDIT_EXEC_CONTROL_NOTIFY,
+    NL_POLICY_AUDIT_PRINTER_NOTIFY,
+    NL_POLICY_AUDIT_UDISK_NOTIFY,//for shield
+    
+//device control
+    NL_POLICY_DEVICE_CONTROL_INQUIRY,
+
+//network change
+    NL_POLICY_NETWORK_CHANGE_NOTIFY,
+    NL_POLICY_NETWORK_DNSIP_NOTIFY,
+
+    NL_MAX_INDEX,
+} NLPolicyType;
+
+#define BIT_INDEX_OFFSET 8
+
+#define ECHO_CMD_STR_SET_PORT_ID  "set portid"
+#define ECHO_CMD_STR_CLEAR_PORT_ID  "clear portid"
+#define ECHO_CMD_STR_ECHO     "echo"
+
+#define ECHO_CMD_STR_SET_DEBUG     "set debug"
+
+//the bool sync information structure
+struct bool_info {
+    void* pwait_flag;
+    int bBool;
+};
+///////////////////////////////////////////////////////////////////////////////
+//Audit System
+
+#define AUDIT_ACTION_OPEN 1
+#define AUDIT_ACTION_RENAME 2
+#define AUDIT_ACTION_TRUNCATE 3
+#define AUDIT_ACTION_CHMOD 4
+#define AUDIT_ACTION_UNLINK 5
+#define AUDIT_ACTION_MKDIR 6
+#define AUDIT_ACTION_RMDIR 7
+#define AUDIT_ACTION_CHOWN 8
+#define AUDIT_ACTION_WRITE 9
+
+#define PROCESS_MONITOR_EXEC 0
+#define PROCESS_MONITOR_KILL 1
+#define PROCESS_MONITOR_EXIT 2
+#define PROCESS_MONITOR_FORK 3
+
+#define SERVICE_MONITOR_STOP     0
+#define SERVICE_MONITOR_START    1
+#define SERVICE_MONITOR_RESTART  2
+
+struct netlink_netlog {
+    int start_idx;
+    int end_idx;
+    int max_idx;
+};
+
+struct port_audit_info {
+    int32_t pid;
+    int32_t port;
+    int32_t black;
+    char process_name[16];
+};
+
+struct port_scan_info {
+    __be32 src;
+    __be32 dst;
+    int32_t port;
+};
+
+struct arp_defense_info {
+    __be32 ip;
+    unsigned char mac[20];
+};
+
+struct conm_netflow_info  {
+    int mode;
+    int up;
+    int protocol;
+    __be32 sip;
+    __be32 sport;
+    __be32 dip;
+    __be32 dport;
+};
+
+struct process_flow {
+    char comm[16];
+    int32_t pid;
+    int up;
+    int sock_type;
+    int flowsize;
+    struct sockaddr selfaddr;
+    struct sockaddr peeraddr;
+	int action; //for shield
+};
+
+struct process_info {
+    int32_t pid;
+    int32_t uid;
+    int32_t ppid;
+    int32_t action;
+	int32_t decision;
+    int64_t memsize;
+    long time;
+	char process_name[256];
+};
+
+struct service_info {
+	int32_t pid;
+	int32_t uid;
+	int32_t action;
+    long time;
+	char server_name[32];
+	char dir_name[256];
+};
+
+struct print_info {
+	char job_id[16];
+	char files[16];
+	char filename[64];
+};
+
+struct path_info {
+	char path[256];
+	unsigned short mode;
+	int32_t uid;
+	//struct timespec i_atime;
+	//struct timespec i_mtime;
+	//struct timespec i_ctime;
+};
+
+struct file_op_monitor {
+    struct process_info pi;
+    struct path_info src_path;
+    struct path_info dst_path;
+	int hit;
+};
+
+struct kill_notify_data {
+    int32_t source_pid;
+    int32_t target_pid;
+    int32_t sig;
+    int32_t source_uid;
+    int32_t target_uid;
+};
+
+struct file_access_notify_data{
+    struct process_info pi;
+    int32_t flag;
+};
+
+struct flow_monitor_notify_data {
+	long long flowthreshold;
+	long long overload;
+	long timeinterval;
+	int action;
+	int direction;
+};
+
+struct flow_monitor_audit_data {
+	char process_name[20];
+	long long upflow;
+	long long downflow;
+	long long total_flow;	
+};
+
+struct flow_monitor_audit_info {
+	int count;
+	struct flow_monitor_audit_data entry[0];
+};
+
+struct http_info {
+	int type;
+	int host_len;
+	char pname[128];
+	char host[0];
+};
+
+struct udisk_audit_info { // for shield
+	int32_t pid;
+	int32_t uid;
+	int32_t action;
+	char path[256];
+	char comm[16];	
+    long time;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+//Security Document
+
+#define PROCESS_MONITOR_EXEC 0
+#define PROCESS_MONITOR_KILL 1
+#define PROCESS_MONITOR_EXIT 2
+
+#define DOCUMENT_PRINT -360360
+#define DOCUMENT_COPY  -1361361
+#define DOCUMENT_PASTE -2362362
+
+#define Q_NORDWR 0
+#define Q_RDONLY 1
+#define Q_WRONLY 2
+#define Q_RDWR   3
+
+
+struct osec_global_dir{
+    uint8_t _type;
+    char name[255];
+    uint8_t name_len;
+};
+
+struct NetworkKernelRulesInfo{
+    uint8_t addr_type:5,
+            protocol:1; //1-tcp,0-udp
+ //   uint32_t sip;
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }sip;
+
+    uint16_t sport;
+//    uint32_t eip;
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }eip;
+
+    uint16_t eport;
+    uint16_t redirectPort;
+};
+
+struct NetworkKernelPolicyInfo
+{
+    uint16_t pol_switch:1,
+            acl_type:1,
+            acl_num:8;
+    struct NetworkKernelRulesInfo rules_info[20];
+};
+
+
+struct osec_network_report 
+{
+//    uint32_t type;
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }src;
+    uint16_t src_port;
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }dst;
+    uint16_t dest_port;
+    uint32_t pid;
+    char comm[32]; //This member is optional when logging internal communications.
+    //char dns_name[255];
+};
+
+struct osec_network_report_old 
+{
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }src;
+    uint16_t src_port;
+    union {
+        struct {
+            uint32_t pad[3];
+            uint32_t ip4;
+        };
+        uint16_t ip6[8];
+        uint8_t as_u8[16];
+        uint64_t as_u64[2];
+    }dst;
+    uint16_t dest_port;
+    uint32_t pid;
+    char comm[32];
+    uint8_t type;
+    //char dns_name[255];
+};
+
+
+struct osec_dns_report 
+{
+    uint32_t type;
+    uint32_t src_ip;
+    uint16_t src_port;
+    uint32_t dest_ip;
+    uint16_t dest_port;
+    uint32_t pid;
+    char comm[32];
+    uint8_t is_ipv6:1,
+            ip_cnt:4;
+    union {
+        uint32_t ipv4[12];
+        uint8_t ipv6[48];
+    };
+    char dns_name[255];
+};
+
+struct osec_openport_report 
+{
+    uint32_t type;
+    uint32_t src_ip;
+    uint16_t src_port;
+    uint32_t dest_ip;
+    uint32_t attack_dest_ip;
+    uint16_t dest_port;
+    uint32_t pid;
+    char comm[32];
+};
+
+struct defense_action {
+    int action;
+    void* pwait_flag; 
+};
+///////////////////////////////////////////////////////////////////////////////
+// open file information to user
+typedef enum {
+    ACTION_WRITE_FILE = 0 ,
+    ACTION_RENAME,
+    ACTION_BOOT,
+    ACTION_LOADLIB,
+    ACTION_INOTIFY = 0,
+} FILE_AUDIT_ACTION;
+
+typedef struct {
+    pid_t pid;
+    FILE_AUDIT_ACTION action;
+    char filepath[1024];
+} KFILE_INFO;
+
+struct av_process_info {
+    int pid;
+    int ppid;
+    int uid;
+    void* pwait_flag;
+    char comm[16];
+    char comm_p[16];
+    //char dst_path[1024];
+    int type;
+    int is_dir:3,
+        deny:3,
+        param_pos:10,
+        is_monitor_mode:2;
+    char path[1024];
+    //char param[1024];
+};
+
+struct av_file_info {
+    int pid;
+    int ppid;
+    int uid;
+    void* pwait_flag;
+    char comm[512];
+    char comm_p[16];
+    char path[1024];
+    char dst_path[1024];
+    uint16_t type;
+    uint32_t is_dir:3,
+        deny:3,
+        is_monitor_mode:2,
+        rules_type:4,
+        rules_idx:8,
+        protect_rw:6,
+		is_file:1;
+};
+
+struct av_self_protection_info {
+    int pid;
+    int ppid;
+    int uid;
+    int type;
+    char comm[512];
+    char comm_p[16];
+    char path[1024];
+    char dst_path[1024];
+};
+
+struct symbol_msg {
+	long sym_addr;
+	char name[0];
+};
+
+/////////////////////////////////////////////////////
+//charater device
+typedef struct {
+    uint16_t type;//对应前面user向kernel发送的NL_POLICY_XXX
+    uint16_t len;//data的长度
+    void* addr; //用户空间地址
+}kosecs_data_t;
+
+//内核发给用户态的数据格式
+struct kosecs_msg_data {
+    int data_type;//对应前面kernel向user发送的NL_POLICY_XXX_NOTIFY
+    int data_len;
+    char data[0];
+};
+
+//static int zero_copy_load_succeed = 0;
+#define KTQ_DATA_MAX 8192
+#define KTQ_IOC_MAGIC ('T' + 'Q')
+#define KTQ_IOC_SETVAL (_IOW(KTQ_IOC_MAGIC, 0x1,kosecs_data_t))
+
+#define KTQ_SET_DATA(data,_type,_len,_paddr) \
+                    data.type = _type;      \
+                    data.len = _len;         \
+                    data.addr = _paddr;
+
+
+#define KTQ_CDEV_NAME  "osecbz1"
+#define KTQ_CDEV_PATH  "/dev/osectest"
+
+#define KTQ_OSEC_NAME "MagicArmor_0"
+
+/////////////////////////////////////////////////////
+//导出的sysfs协议接口文件,通过该文件能够获取内核开启的netlink端口及char-dev标识
+#define KTQ_SYSFS_PROTO "/sys/osec/proto"
+////////////////////////////////////////////////////
+
+enum DEFENSE_TYPE {
+    FILE_CREATE = 0,
+    FILE_REMOTE = 1,
+    FILE_MODIFY = 2,
+    FILE_OPEN = 3,
+    FILE_RENAME = 4,
+    PROCESS_CREATE = 5,
+    FILE_CLOSE = 6
+
+};
+
+#endif

@@ -1,0 +1,31 @@
+khf-objs += $(KHFDIR)/hook/khf_hook.o 
+
+khf-objs += $(KHFDIR)/hook/ksyscall_hook.o 
+khf-objs += $(KHFDIR)/hook/hook_ksyms.o 
+khf-objs += $(KHFDIR)/hook/sysmap.o
+khf-objs += $(KHFDIR)/hook/syscall_name.o
+khf-objs += $(KHFDIR)/hook/kallsyms.o
+khf-objs += $(KHFDIR)/hook/arch/hook_arch.o
+khf-objs += $(KHFDIR)/hook/hook_ops.o
+khf-objs += $(KHFDIR)/hook/khf_syscalls.o 
+
+khf_core-objs += $(KHFDIR)/core/khf_version.o 
+khf_core-objs += $(KHFDIR)/core/khf_blm.o
+khf_core-objs += $(KHFDIR)/core/khf_memcache.o 
+khf_core-objs += $(KHFDIR)/core/khf_core.o 
+khf_core-objs += $(KHFDIR)/core/khookframe.o 
+
+khf_lsm-objs += $(KHFDIR)/lsm/khf_lsm.o
+khf_commlsm-objs += $(KHFDIR)/lsm/khf_commlsm.o
+khf_exec-objs += $(KHFDIR)/exec/exec_fake.o
+
+khf_kernel-objs += $(khf-objs)
+khf_kernel-objs += $(khf_test-objs)
+
+khf_kernel-objs += $(khf_lsm-objs)
+khf_kernel-objs += $(khf_core-objs)
+khf_kernel-objs += $(khf_sysfs-objs)
+
+khf_kernel-objs += $(khf_commlsm-objs)
+khf_kernel-objs += $(khf_exec-objs)
+khf_kernel-objs += $(khf_fs-objs)

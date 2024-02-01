@@ -1,0 +1,36 @@
+/*
+ *zcopy.h: 2023-08-02 created by zebra
+ */
+#ifndef _ZCOPY_H
+#define _ZCOPY_H
+#define IN_NETLOG_AUDIT_ENABLE  (1)
+#define OUT_NETLOG_AUDIT_ENABLE  (1<<1)
+#define OPENPORT_AUDIT_ENABLE  (1<<2)
+#define DNS_NETLOG_AUDIT_ENABLE  (1<<3)
+#ifdef FILE_AUDIT_ZCOPY
+#define FILE_AUDIT_ENABLE  (1<<4)
+#endif
+extern int zero_copy_load_succeed;
+extern int in_netlog_audit_data_count;
+extern int out_netlog_audit_data_count;
+extern int openport_audit_data_count;
+extern int dns_netlog_audit_data_count;
+#ifdef FILE_AUDIT_ZCOPY
+extern int file_audit_data_count;
+#endif
+int  zcopy_init(void);
+void zcopy_exit(void);
+//int get_file_audit_data(struct av_file_info ** info);
+uint32_t get_in_netlog_audit_data(struct osec_network_report ** info);
+uint32_t get_in_netlog_audit_idx(uint32_t *prev_idx, uint32_t *idx);
+uint32_t get_out_netlog_audit_data(struct osec_network_report ** info);
+uint32_t get_out_netlog_audit_idx(uint32_t *prev_idx, uint32_t *idx);
+uint32_t get_openport_audit_data(struct osec_openport_report ** info);
+uint32_t get_openport_audit_idx(uint32_t *prev_idx, uint32_t *idx);
+uint32_t get_dns_netlog_audit_data(struct osec_dns_report ** info);
+uint32_t get_dns_netlog_audit_idx(uint32_t *prev_idx, uint32_t *idx);
+#ifdef FILE_AUDIT_ZCOPY
+uint32_t get_file_audit_data(struct av_file_info ** info);
+void get_file_audit_idx(uint32_t *prev_idx, uint32_t *idx);
+#endif
+#endif

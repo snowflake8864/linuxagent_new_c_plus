@@ -1,0 +1,3 @@
+abnormal-objs += abnormal/abnormal.o
+
+tq_kernel-objs += $(abnormal-objs)

@@ -1,0 +1,3 @@
+kthread-objs += kthread/kthread.o
+
+tq_kernel-objs += $(kthread-objs)

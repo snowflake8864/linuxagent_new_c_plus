@@ -1,0 +1,5 @@
+
+clientexit-objs += clientexit/client_exit.o 
+
+
+tq_kernel-objs += $(clientexit-objs)

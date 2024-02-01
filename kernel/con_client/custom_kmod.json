@@ -1,0 +1,14 @@
+[
+	{
+        "release":"centos7.0",
+        "kernel":"3.10.13",
+		"arch":"amd64",
+        "file":"osecs_base.ko-3.10.13"
+    },
+    {
+        "release":"centos7.2",
+        "kernel":"3.10.567",
+		"arch":"mips64",
+        "file":"osecs_base.ko-3.10.567"
+    }
+]

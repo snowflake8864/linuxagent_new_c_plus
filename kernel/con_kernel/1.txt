@@ -1,0 +1,91 @@
+# -make -j4 -C ad_fake/
+echo "4.15.0-213-generic"
+4.15.0-213-generic
+make -j4 -I/root/workspace/veda/linux_veda_agent/kernel/con_kernel -C /lib/modules/4.15.0-213-generic/build M=/root/workspace/veda/linux_veda_agent/kernel/con_kernel modules
+make[1]: Entering directory '/usr/src/linux-headers-4.15.0-213-generic'
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/main.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/stack/stack.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/abnormal/abnormal.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/kthread/kthread.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hook/hook.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hook/pks/pks_wp.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/notify/client_notify.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/utils.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/fs_magic.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/exe_cmdline.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/task_cmdline.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/hash_table.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/rb_htable.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/sub_path.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/md5.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/mstring.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/utils/var_proc.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/flag_cache.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/gnkernel.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/cmd_handler.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/proto.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/cpu.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/core/zcopy.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/clientexit/client_exit.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/netlink/netlink.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/cdev/cdev.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/cdev/mmcdev.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/sysfs/ktq_sysfs.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/sysfs/ktq_debugfs.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/sysfs/sysfs_core.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/file_access.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/open.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/namei.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/sock.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/fs_core.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/mount.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/pipe.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/fs/module.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_hook.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/path_security.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_policy.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_sysfs.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_lsm.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_task.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/defense/defense_fake.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/acsm/acsmx2.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/dpi/dpi.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/dpi/pattern_tbl.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/dpi/rules.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/khf_hook.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/ksyscall_hook.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/hook_ksyms.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/sysmap.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/syscall_name.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/kallsyms.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/arch/hook_arch.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/hook_ops.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/hook/khf_syscalls.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/lsm/khf_lsm.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/core/khf_version.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/core/khf_blm.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/core/khf_memcache.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/core/khf_core.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/lsm/khf_commlsm.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/core/khookframe.o
+  CC [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/hookframe/exec/exec_fake.o
+  LD [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/osec_base.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /root/workspace/veda/linux_veda_agent/kernel/con_kernel/osec_base.mod.o
+  LD [M]  /root/workspace/veda/linux_veda_agent/kernel/con_kernel/osec_base.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-213-generic'
+rm symbols.txt
+/lib/modules/4.15.0-213-generic/build/scripts/mod/modpost -m -a -i /lib/modules/4.15.0-213-generic/build/Module.symvers -I /root/workspace/veda/linux_veda_agent/kernel/con_kernel/Module.symvers  -o /root/workspace/veda/linux_veda_agent/kernel/con_kernel/Module.symvers   /root/workspace/veda/linux_veda_agent/kernel/con_kernel/osec_base.o 2>symbols.txt
+Makefile:76: recipe for target 'all' failed
+awk '{print }' /root/workspace/veda/linux_veda_agent/kernel/con_kernel/symbols.txt
+ERROR: "proc_osec" [/root/workspace/veda/linux_veda_agent/kernel/con_kernel/osec_base.ko] undefined!
+a=`awk '{print }' /root/workspace/veda/linux_veda_agent/kernel/con_kernel/symbols.txt  | grep "undefined" | grep -v "module_layout" | grep -v "struct_module" |wc -l`;echo ${a};\
+if [ ${a} -gt 0 ];\
+then\
+        echo "kernel Symbol not exported";\
+        exit 1;\
+fi
+1
+kernel Symbol not exported
+Makefile:76: recipe for target 'all' failed
