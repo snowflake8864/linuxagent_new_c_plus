@@ -76,7 +76,7 @@ namespace ASNetAgent
 	const unsigned int ASNetAgentContentType_File = 1;
 	//////////////////////////////////////////////////////////////////////////
 	//通讯参数，在SendData或SendCriticalData的pInData Bundle里传入的各种参数
-	//和天擎控制中心通讯只需要指定AS_NETAGENT_SENDATTR_API、AS_NETAGENT_SENDATTR_CONTENT即可
+	//和控制中心通讯只需要指定AS_NETAGENT_SENDATTR_API、AS_NETAGENT_SENDATTR_CONTENT即可
 	//netagent模块会自动拼接url，并在后面加上终端mid、通讯version等参数
 	//通讯方式，int.只支持ASNetAgentSendMethod_HTTPGET和ASNetAgentSendMethod_HTTPPOST，默认为post
 	const char* const AS_NETAGENT_SENDATTR_METHOD = "as.netagent.senddata.attr.send_method";
@@ -86,16 +86,16 @@ namespace ASNetAgent
 	const char* const AS_NETAGENT_SENDATTR_CONTENT = "as.netagent.senddata.attr.content";
 	//通讯的超时时间,int,单位毫秒，默认值为AS_NETAGENT_DEFAULT_SEND_TIMEOUT
 	const char* const AS_NETAGENT_SENDATTR_TIMEOUT = "as.netagent.senddata.attr.timeout";
-	//和天擎控制中心外的服务器通讯需要指定AS_NETAGENT_SENDATTR_ADDRESS或AS_NETAGENT_SENDATTR_RAWURL
-	//区别为只指定AS_NETAGENT_SENDATTR_ADDRESS时还会自动补全url，加上mid、ver等参数，一般用于和天擎的盒子产品通讯
-	//指定AS_NETAGENT_SENDATTR_RAWURL时url参数完全用自定义值，一般用于和天擎体系外的服务器通讯
+	//和控制中心外的服务器通讯需要指定AS_NETAGENT_SENDATTR_ADDRESS或AS_NETAGENT_SENDATTR_RAWURL
+	//区别为只指定AS_NETAGENT_SENDATTR_ADDRESS时还会自动补全url，加上mid、ver等参数，一般用于和的盒子产品通讯
+	//指定AS_NETAGENT_SENDATTR_RAWURL时url参数完全用自定义值，一般用于和体系外的服务器通讯
 	//通讯的完整url，utf8 string
 	const char* const AS_NETAGENT_SENDATTR_RAWURL = "as.netagent.senddata.attr.url";
 	//额外uri，类似http://127.0.0.1/download/setup/1.7z后面的download/setup/1.7z部分，utf8 string，最大4k
 	const char* const AS_NETAGENT_SENDATTR_EXTRAURI = "as.netagent.senddata.attr.extra_uri";
 	//通讯地址，类似10.18.31.87:8080这种格式，不指定时默认用控制中心地址，暂不支持域名
 	const char* const AS_NETAGENT_SENDATTR_ADDRESS = "as.netagent.senddata.attr.address";
-	//通讯时使用的终端mid，一般不需要自己指定，不指定时用天擎默认值
+	//通讯时使用的终端mid，一般不需要自己指定，不指定时用默认值
 	const char* const AS_NETAGENT_SENDATTR_MID = "as.netagent.senddata.attr.mid";
 	//通讯时强制使用1.0协议，int值，1-强制使用1.0协议；0-默认值，随着配置文件自动切换1.0/2.0协议，常使用于外网弹窗、第三方不支持ver=2.0参数的场景
 	const char* const AS_NETAGENT_SENDATTR_PROTOCOL10 = "as.netagent.senddata.attr.protocol_10";

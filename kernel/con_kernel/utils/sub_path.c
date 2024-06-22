@@ -139,8 +139,8 @@ static int subpath_cmp(const char* path,size_t pathlen,
 	/*2.
 	 *path长度只比data->key表示的路径小1,
 	 *且data->key表示一个目录
-	 *此时是为了处理data->key是类似:/opt/qaxsafe/,
-	 *而path类似:/opt/qaxsafe的情况
+	 *此时是为了处理data->key是类似:/opt/osec/,
+	 *而path类似:/opt/osec的情况
 	 */
 	else if((pkey[data->key_len - 1] == '/') && 
 			(pathlen == (data->key_len - 1))) {

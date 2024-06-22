@@ -1503,7 +1503,7 @@ enum NC_CMD_TYPE {
     NC_CMD_RULE = 4, 
 
     /*
-     *天擎控制中心ip地址V2版本(支持ipv4/ipv6,2.0.0.4300版本加入)
+     *控制中心ip地址V2版本(支持ipv4/ipv6,2.0.0.4300版本加入)
      *其Data格式如下:
      *IPV4地址(TLV_VT_IPV4),IPV6地址(TLV_VT_IPV6)
      *
@@ -2300,8 +2300,8 @@ struct ktq_msg_data {
 //公司名称标识
 #define KTQ_COMP_NAME	"MagicArmor_0"
 
-//天擎终端UI程序前缀标识
-#define KTQ_TQUI_NAME  "sqaxsafe"
+//终端UI程序前缀标识
+#define KTQ_TQUI_NAME  "sosec"
 
 ////////////////////////////////////////////////////////
 

@@ -142,14 +142,6 @@ bool is_self_comm(void)
     size_t i;
     bool ok = false;
     size_t size = 0;
-	static const char qaxbrowser[] = "qaxbrowser";
-	
-	//奇安信浏览器特殊处理
-	if(!khf_strncasecmp(CURRENT_COMM,qaxbrowser,
-			sizeof(qaxbrowser) - 1)) 
-	{
-		return ok;
-	}
 
     size = ARRAY_SIZE(valid_us_comms);
     for(i = 0;i < size;i++) {

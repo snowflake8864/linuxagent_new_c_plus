@@ -10,8 +10,8 @@
 #include "gnHead.h"
 #include "defense_inner.h"
 
-#define DEFENSE_FAKE_NAME "qaxsafed"
-#define SERVICE_SCRIPT_NAME "serviceqaxsafe"
+#define DEFENSE_FAKE_NAME "osecd"
+#define SERVICE_SCRIPT_NAME "serviceosec"
 
 static char _service_script_fake[256] = {0};
 static const char _service_script[] = "/etc/init.d/"SERVICE_SCRIPT_NAME;
@@ -31,8 +31,8 @@ static bool is_faked_task(const char* comm)
 /*
  * 这里的判断逻辑如下:
  * 1.如果是通过/sbin/init(pid为1,采用systemd的系统上/sbin/init是指向systemd的软链接)
- *   调用的serviceqaxsafe脚本
- * 2.调用serviceqaxsafe传入的参数是stop(形如/etc/init.d/serviceqaxsafe stop)
+ *   调用的serviceosec脚本
+ * 2.调用serviceosec传入的参数是stop(形如/etc/init.d/serviceosec stop)
  * 
  * 只有满足上述两个条件时我们才执行重定向
  */
@@ -63,7 +63,7 @@ static bool defense_fake_precheck(struct linux_binprm* bprm,
     bfake = !is_faked_task(comm);
     if(!bfake) { return bfake; }
 
-    ///etc/init.d/serviceqaxsafe stop只有两个参数
+    ///etc/init.d/serviceosec stop只有两个参数
     rc = ktq_get_exe_args(bprm,
         buf,sizeof(buf) - 1,
         args,2);
@@ -81,7 +81,7 @@ static bool defense_fake_precheck(struct linux_binprm* bprm,
  *Note:
  *这里无论如何都要执行重定向:
  *因为无论自保是否开启都要对保证服务脚本能够正常工作，否则会影响系统关机的;
- *我们的服务脚本不支持stop参数,我们在内核中对serviceqaxsafe做重定向后由qaxsafed执行stop参数
+ *我们的服务脚本不支持stop参数,我们在内核中对serviceosec做重定向后由osecd执行stop参数
  */
 static int defense_fake_check(struct linux_binprm* bprm,
             const char* exec_path,const char* exec_name)

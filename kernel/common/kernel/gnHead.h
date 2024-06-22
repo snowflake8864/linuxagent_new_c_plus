@@ -1499,7 +1499,7 @@ enum NC_CMD_TYPE {
     NC_CMD_RULE = 4, 
 
     /*
-     *天擎控制中心ip地址V2版本(支持ipv4/ipv6,2.0.0.4300版本加入)
+     *控制中心ip地址V2版本(支持ipv4/ipv6,2.0.0.4300版本加入)
      *其Data格式如下:
      *IPV4地址(TLV_VT_IPV4),IPV6地址(TLV_VT_IPV6)
      *
@@ -2255,13 +2255,10 @@ struct ktq_msg_data {
 //#define KTQ_CDEV_NAME  "qaxmjbz1"
 //#define KTQ_CDEV_PATH  "/dev/qaxmjbz1"
 
-//奇安信密级标记名称标示,其格式类似:QAXMJBZWJTX3,其中QAXMJBZ是固定的
-//WJTX3可能会变化，所以此处只验证QAXMJBZ
 #define KTQ_MJBZ_NAME "QAXMJBZ"
 #define KTQ_MJBZ_EXEC "/opt/MJBZGL/MJBZGL/QAX/QAXMJBZUI2" //压缩包的重定向应用
 #define KTQ_MJBZ_EXEC1 "/opt/MJBZGL/MJBZGL/QAX/QAXMJBZUI4" //针对文件管理器重定向应用
 
-// 奇安信信息隐藏名称标识,其格式类似:QAXXXYCYWTX2,其中QAXXXYC是固定的
 // YWTX2可能会变化, 所以此处只验证QAXXXYC
 #define KTQ_XXYC_NAME "QAXXXYC"
 
@@ -2296,8 +2293,8 @@ struct ktq_msg_data {
 //公司名称标识
 #define KTQ_COMP_NAME	"MagicArmor_0"
 
-//天擎终端UI程序前缀标识
-#define KTQ_TQUI_NAME  "sqaxsafe"
+//终端UI程序前缀标识
+#define KTQ_TQUI_NAME  "sosec"
 
 ////////////////////////////////////////////////////////
 

@@ -38,7 +38,7 @@ static const char arch_name[] = "i386_hook";
 #endif
 
     /*这里直接使用汇编
-    *因为天擎驱动6.0.2.2305版本有重大bug
+    *因为驱动6.0.2.2305版本有重大bug
     *在凝思4.2.40上发现：
     *因错误hook renameat2(在3.10以下版本的内核上根本就没有这个系统调用)
     *导致使用read_cr0/write_cr0访问CR0,MSR_LSTAR这些寄存器时直接引起系统异常崩溃了

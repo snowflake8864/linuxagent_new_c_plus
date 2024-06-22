@@ -49,11 +49,11 @@ namespace ASReportCom
 	const char* const AS_REPORT_ATTR_USERASYNREALTIME = "as.report.attr.user_asyn_realtime";
 	//上报到哪个api,如upload_client_log.json,utf8 string
 	const char* const AS_REPORT_ATTR_API = "as.report.attr.api";
-	//上报到哪,ip:port的格式非控制中心时需要指定这个参数,多用于要用天擎的上报格式上报但不是控制中心的情况如缓存服务器
+	//上报到哪,ip:port的格式非控制中心时需要指定这个参数,多用于要用的上报格式上报但不是控制中心的情况如缓存服务器
 	const char* const AS_REPORT_ATTR_ADDR = "as.report.attr.addr";
 	//上报方法,get、post,int
 	const char* const AS_REPORT_ATTR_METHOD = "as.report.attr.method";
-	//上报到哪个url,这种模式时不会自动在后面拼接mid、ver等参数,一般用于非天擎控制中心的情况
+	//上报到哪个url,这种模式时不会自动在后面拼接mid、ver等参数,一般用于非控制中心的情况
 	const char* const AS_REPORT_ATTR_RAWURL = "as.report.attr.raw_url";
 	//mid
 	const char* const AS_REPORT_ATTR_RAWMID = "as.report.attr.raw_mid";
