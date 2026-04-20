@@ -1,0 +1,6 @@
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.tar.bz filter=lfs diff=lfs merge=lfs -text
+*.tar.bz2 filter=lfs diff=lfs merge=lfs -text
+cli_ssl/server filter=lfs diff=lfs merge=lfs -text
+common/dependlibs/**/*.so* filter=lfs diff=lfs merge=lfs -text
+common/dependlibs/**/*.a filter=lfs diff=lfs merge=lfs -text
